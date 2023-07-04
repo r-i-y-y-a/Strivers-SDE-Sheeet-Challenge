@@ -1,0 +1,53 @@
+class Solution {
+public:
+void up(vector<vector<int>>& matrix , int row , int col){
+    if(row<0){
+        return;
+    }
+    matrix[row][col] = 0;
+    up(matrix, row-1,col);
+}
+void down(vector<vector<int>>& matrix , int row , int col){
+    if(row>matrix.size()-1){
+        return;
+    }
+    matrix[row][col] = 0;
+    down(matrix, row+1,col);
+}
+
+void left(vector<vector<int>>& matrix , int row , int col){
+    if(col<0){
+        return;
+    }
+    matrix[row][col] = 0;
+    left(matrix, row,col-1);
+
+}
+void right(vector<vector<int>>& matrix , int row , int col){
+    if(col>matrix[0].size()-1){
+        return;
+    }
+    matrix[row][col] = 0;
+    right(matrix, row,col+1);
+}
+
+    void setZeroes(vector<vector<int>>& matrix) {
+        vector<pair<int,int>>vt;
+        for(int i =0; i<matrix.size(); i++){
+            for(int j =0; j<matrix[0].size(); j++){
+                if(matrix[i][j]==0){
+                    vt.push_back({i,j});
+                }
+            }
+        }
+        for(auto it:vt){
+            int i = it.first;
+            int j = it.second;
+            up(matrix, i-1 , j);
+            down(matrix , i+1, j);
+            left(matrix , i,j-1);
+            right(matrix , i,j+1);
+
+        }
+    }
+};
